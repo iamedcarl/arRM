@@ -40,15 +40,43 @@ class SQLObject
     end
   end
 
+  def self.all
+    @all = DBConnection.execute(<<-SQL)
+        SELECT
+          *
+        FROM
+          #{table_name}
+      SQL
+    parse_all(@all)
+  end
+
+  def self.parse_all(results)
+    results.map { |ivar| new(ivar) }
+  end
+
+  def self.find(id)
+    @find = DBConnection.execute(<<-SQL, id)
+        SELECT
+          *
+        FROM
+          #{table_name}
+        WHERE
+          id = ?
+      SQL
+    return nil if @find.count < 1
+
+    new(@find.first)
+  end
+
   def initialize(params = {})
     params.each do |attr_name, value|
       sym_name = attr_name.to_sym
       if self.class.columns.include?(sym_name)
-        self.send("#{sym_name}=", value)
+        send("#{sym_name}=", value)
       else
         raise "unknown attribute '#{sym_name}'"
       end
     end
   end
 
-end
+end # End of SQLObject
