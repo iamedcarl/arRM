@@ -79,4 +79,54 @@ class SQLObject
     end
   end
 
+  def attributes
+    @attributes ||= {}
+  end
+
+  def attribute_values
+    self.class.columns.map { |attribute| self.send(attribute) }
+  end
+
+  def insert
+    col_names = self.class.columns.join(', ')
+    count = self.class.columns.count
+    question_marks = (['?'] * count).join(', ')
+    vars = self.attribute_values
+
+    DBConnection.execute(<<-SQL, *vars)
+      INSERT INTO
+        #{self.class.table_name}(#{col_names})
+      VALUES
+        (#{question_marks})
+    SQL
+
+    self.id = DBConnection.last_insert_row_id
+  end
+
+  def update
+    set_line = self
+      .class
+      .columns
+      .map { |attr_name| "#{attr_name} = ?" }
+      .join(', ')
+    vars = self.attribute_values
+
+    DBConnection.execute(<<-SQL, *vars, id.to_s)
+      UPDATE
+        #{self.class.table_name}
+      SET
+        #{set_line}
+      WHERE
+        id = ?
+    SQL
+  end
+
+  def save
+    if id.nil?
+      self.insert
+    else
+      self.update
+    end
+  end
+
 end # End of SQLObject
