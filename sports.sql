@@ -32,13 +32,13 @@ VALUES
   (2, "Clippers", 1),
   (3, "Dodgers", 1),
   (4, "Knicks", 2),
-  (5, "Mets", 2);
+  (5, "Mets", 2),
   (6, "Bulls", NULL);
 
 INSERT INTO
-  players (id, name, team_id)
+  players (id, fname, lname, team_id)
 VALUES
-  (1, "Lonzo", "Ball" 1),
+  (1, "Lonzo", "Ball", 1),
   (2, "Brandon", "Ingram", 1),
   (3, "Cody", "Bellinger", 2),
   (4, "Kristaps", "Porzingis", 3),

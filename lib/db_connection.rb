@@ -1,5 +1,6 @@
 require 'sqlite3'
 
+PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
 SPORTS_SQL_FILE = File.join(ROOT_FOLDER, 'sports.sql')
 SPORTS_DB_FILE = File.join(ROOT_FOLDER, 'sports.db')
@@ -39,6 +40,19 @@ class DBConnection
 
   def self.last_insert_row_id
     instance.last_insert_row_id
+  end
+
+  private
+
+  def self.print_query(query, *interpolation_args)
+    return unless PRINT_QUERIES
+
+    puts '--------------------'
+    puts query
+    unless interpolation_args.empty?
+      puts "interpolate: #{interpolation_args.inspect}"
+    end
+    puts '--------------------'
   end
 
 end
