@@ -29,10 +29,11 @@ INSERT INTO
   teams (id, name, city_id)
 VALUES
   (1, "Lakers", 1),
-  (2, "Dodgers", 1),
-  (3, "Knicks", 2),
-  (4, "Mets", 2);
-  (5, "Bulls", NULL);
+  (2, "Clippers", 1),
+  (3, "Dodgers", 1),
+  (4, "Knicks", 2),
+  (5, "Mets", 2);
+  (6, "Bulls", NULL);
 
 INSERT INTO
   players (id, name, team_id)

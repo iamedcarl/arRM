@@ -3,7 +3,9 @@ require_relative 'associatable'
 require_relative 'searchable'
 require 'active_support/inflector'
 
-class SQLObject
+class ArRM
+  extend Searchable
+
   def self.table_name=(table_name)
     @table_name = table_name.tableize
   end
@@ -129,4 +131,4 @@ class SQLObject
     end
   end
 
-end # End of SQLObject
+end # End of ArRM
