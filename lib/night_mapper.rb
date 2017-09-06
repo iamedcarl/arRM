@@ -3,8 +3,9 @@ require_relative 'associatable'
 require_relative 'searchable'
 require 'active_support/inflector'
 
-class ArRM
+class NightMapper
   extend Searchable
+  extend Associatable
 
   def self.table_name=(table_name)
     @table_name = table_name.tableize
