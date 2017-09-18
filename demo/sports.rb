@@ -1,4 +1,4 @@
-require_relative 'lib/night_mapper'
+require_relative '../lib/night_mapper'
 
 class Player < NightMapper
   belongs_to :team
