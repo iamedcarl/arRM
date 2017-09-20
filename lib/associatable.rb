@@ -70,8 +70,4 @@ module Associatable
     end
   end
 
-  # def has_many_through(name, through_name, source_name)
-  #
-  # end
-
 end # end of Associatable
